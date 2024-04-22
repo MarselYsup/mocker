@@ -1,0 +1,23 @@
+{{>package}}.controllers;
+
+{{>imports/spring_web_imp}}
+{{#responseObject.AreExistedHeaders}}{{>imports/header}}{{/responseObject.AreExistedHeaders}}
+{{#responseObject.isExistedBody}}{{>imports/body}}{{/responseObject.isExistedBody}}
+{{#requestObject.queryParams}}{{>imports/request_param_imp}}{{/requestObject.queryParams}}
+
+    @RestController
+public class {{name}} {
+    
+    @RequestMapping(path = "{{requestObject.path}}", method = RequestMethod.{{requestObject.method}})
+    public ResponseEntity<?> method({{#requestObject.queryParams}}{{>http/query_exp}}{{/requestObject.queryParams}}) {
+        {{#responseObject.AreExistedHeaders}}{{>http/header_exp}}{{/responseObject.AreExistedHeaders}}
+        {{#responseObject.isExistedBody}}{{>http/body_exp}}{{/responseObject.isExistedBody}}
+        return ResponseEntity
+                .status({{responseObject.status}})
+{{#responseObject.AreExistedHeaders}}                .headers(headers){{/responseObject.AreExistedHeaders}}
+{{#responseObject.body.bodyJson}}                .body("{{responseObject.body.bodyJson}}");{{/responseObject.body.bodyJson}}
+{{^responseObject.body.bodyJson}}{{#responseObject.isExistedBody}}                .body(body);{{/responseObject.isExistedBody}}{{/responseObject.body.bodyJson}}
+{{^responseObject.body.bodyJson}}{{^responseObject.isExistedBody}}                .build(){{/responseObject.isExistedBody}}{{/responseObject.body.bodyJson}}
+
+    }
+}

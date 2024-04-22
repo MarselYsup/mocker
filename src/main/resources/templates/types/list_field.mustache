@@ -1,0 +1,16 @@
+{{#item.isBoolean}}
+    private List<Boolean> {{name}};
+{{/item.isBoolean}}
+{{#item.isString}}
+        private List<String> {{name}};
+{{/item.isString}}
+{{#item.isInteger}}
+        private List<Integer> {{name}};
+{{/item.isInteger}}
+{{#item.isLong}}
+        private List<Long> {{name}};
+{{/item.isLong}}
+{{#item.isDouble}}
+        private List<Double> {{name}};
+{{/item.isDouble}}
+{{#item.isList}}private List<{{#item}}{{>list_items}}{{/item}}> {{name}};{{/item.isList}}

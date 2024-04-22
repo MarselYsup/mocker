@@ -1,0 +1,29 @@
+{{>package}}.dto;
+
+{{>imports/lombok_imp}}
+{{>imports/utils_imp}}
+
+{{>annotations/lombok_ann}}
+public class {{name}} {
+
+{{#fields}}
+    {{#isBoolean}}
+        {{>types/boolean_field}}
+    {{/isBoolean}}
+    {{#isString}}
+        {{>types/string_field}}
+    {{/isString}}
+    {{#isInteger}}
+        {{>types/integer_field}}
+    {{/isInteger}}
+    {{#isLong}}
+        {{>types/long_field}}
+    {{/isLong}}
+    {{#isDouble}}
+        {{>types/double_field}}
+    {{/isDouble}}
+    {{#isList}}
+        {{>types/list_field}}
+    {{/isList}}
+{{/fields}}
+}

@@ -1,0 +1,3 @@
+{{responseObject.body.name}}    body = new {{responseObject.body.name}}();
+{{#responseObject.body.fields}}    body.set{{name}}({{#isString}}"{{/isString}}{{primitiveValue}}{{#isString}}"{{/isString}});
+{{/responseObject.body.fields}}

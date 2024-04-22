@@ -1,0 +1,5 @@
+HttpHeaders headers = new HttpHeaders();
+{{#responseObject.headers}}        headers.add("{{name}}", "{{value}}");
+{{/responseObject.headers}}
+{{#responseObject.body.bodyJson}}  headers.add("Content-Type", "application/json");
+{{/responseObject.body.bodyJson}}
