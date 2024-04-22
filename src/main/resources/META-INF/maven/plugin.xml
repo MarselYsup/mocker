@@ -1,0 +1,12 @@
+<plugin>
+    <groupId>com.example</groupId>
+    <artifactId>my-maven-plugin</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <mojos>
+        <mojo>
+            <goal>greet</goal>
+            <implementation>ru.itis.mocker.maven.MyMavenPlugin</implementation>
+            <phase>compile</phase>
+        </mojo>
+    </mojos>
+</plugin>
