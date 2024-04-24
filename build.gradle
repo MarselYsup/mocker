@@ -19,7 +19,9 @@ task makeJarForCli(type: Jar) {
     }
     archiveBaseName = 'my-mock'
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } } {
+        exclude
+    }
     with jar
 }
 

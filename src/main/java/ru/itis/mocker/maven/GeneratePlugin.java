@@ -3,6 +3,7 @@ package ru.itis.mocker.maven;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import ru.itis.mocker.core.generators.Generator;
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.util.Set;
 
 
-@Mojo(name = "generate")
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.COMPILE)
 public class GeneratePlugin extends AbstractMojo {
 
     private static final Set<Generator> SET_OF_GENERATORS = Set.of(
