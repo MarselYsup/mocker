@@ -7,7 +7,7 @@ import ru.itis.mocker.core.generators.GeneratorFactory;
 import ru.itis.mocker.core.generators.impl.*;
 import ru.itis.mocker.core.models.MockerModel;
 import ru.itis.mocker.core.utils.FileUtils;
-
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +43,9 @@ public class GenerateCommand implements Command {
 
 
         String json = FileUtils.readContentFromFile(pathOfFile);
+
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
 
         MockerModel mc = objectMapper.readValue(json, MockerModel.class);
 

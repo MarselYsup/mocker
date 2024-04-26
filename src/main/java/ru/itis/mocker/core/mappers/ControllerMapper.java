@@ -61,6 +61,7 @@ public class ControllerMapper {
                                                 .value(header.getValue())
                                                 .build()
                                 ).toList())
+                                .delay(mockModel.getResponse().getDelay())
                                 .build()
                 ).build());
     }

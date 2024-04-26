@@ -4,6 +4,7 @@
 {{#responseObject.AreExistedHeaders}}{{>imports/header}}{{/responseObject.AreExistedHeaders}}
 {{#responseObject.isExistedBody}}{{>imports/body}}{{/responseObject.isExistedBody}}
 {{#requestObject.queryParams}}{{>imports/request_param_imp}}{{/requestObject.queryParams}}
+{{#responseObject.delay}}{{>imports/delay}}{{/responseObject.delay}}
 
     @RestController
 public class {{name}} {
@@ -12,6 +13,7 @@ public class {{name}} {
     public ResponseEntity<?> method({{#requestObject.queryParams}}{{>http/query_exp}}{{/requestObject.queryParams}}) {
         {{#responseObject.AreExistedHeaders}}{{>http/header_exp}}{{/responseObject.AreExistedHeaders}}
         {{#responseObject.isExistedBody}}{{>http/body_exp}}{{/responseObject.isExistedBody}}
+        {{#responseObject.delay}}{{>other/delay_exp}}{{/responseObject.delay}}
         return ResponseEntity
                 .status({{responseObject.status}})
 {{#responseObject.AreExistedHeaders}}                .headers(headers){{/responseObject.AreExistedHeaders}}

@@ -2,6 +2,7 @@ package ru.itis.mocker.core.models;
 
 import lombok.*;
 
+import java.time.Duration;
 import java.util.List;
 
 @AllArgsConstructor
@@ -15,4 +16,5 @@ public class ResponseModel {
     private List<HttpHeaderModel> headers;
     private String body;
     private String bodyRef;
+    private Duration delay;
 }
