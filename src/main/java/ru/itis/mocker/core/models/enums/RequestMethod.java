@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public enum RequestMethod {
     @JsonProperty("GET")
     GET("GET"),
-    @JsonProperty("POST")
 
+    @JsonProperty("POST")
     POST("POST"),
-    @JsonProperty("POST")
 
+    @JsonProperty("PUT")
     PUT("PUT"),
-    @JsonProperty("PATCH")
 
+    @JsonProperty("PATCH")
     PATCH("PATCH");
 
     private String name;
