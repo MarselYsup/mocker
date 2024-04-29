@@ -44,6 +44,9 @@ public final class ClassGenerator implements Generator {
 
     @Override
     public void generateContent(MockerModel content) {
+        if (content.getClasses() == null) {
+            return;
+        }
         content.getClasses()
                 .stream()
                 .map(obj -> ClassMapper.mapToClassObject(obj, content))

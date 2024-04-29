@@ -1,5 +1,6 @@
 package ru.itis.mocker.cli.commands.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.itis.mocker.cli.commands.Command;
 import ru.itis.mocker.core.generators.Generator;
@@ -8,11 +9,12 @@ import ru.itis.mocker.core.generators.impl.*;
 import ru.itis.mocker.core.models.MockerModel;
 import ru.itis.mocker.core.utils.FileUtils;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
+import static ru.itis.mocker.core.utils.ValidateUtils.validate;
 
 public class GenerateCommand implements Command {
 
@@ -47,7 +49,18 @@ public class GenerateCommand implements Command {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
 
-        MockerModel mc = objectMapper.readValue(json, MockerModel.class);
+        MockerModel mc;
+
+        try {
+            mc = objectMapper.readValue(json, MockerModel.class);
+        } catch (JsonProcessingException e) {
+            System.err.println("Error parsing JSON: " + e.getMessage());
+            return;
+        }
+
+        if (!validate(mc)) {
+            return;
+        }
 
         GeneratorFactory generatorFactory;
 

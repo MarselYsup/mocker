@@ -18,20 +18,12 @@ import java.util.Set;
 import static ru.itis.mocker.core.utils.ValidateUtils.validate;
 
 
-@Mojo(name = "generate", defaultPhase = LifecyclePhase.COMPILE)
-public class GeneratePlugin extends AbstractMojo {
+@Mojo(name = "validate", defaultPhase = LifecyclePhase.COMPILE)
+public class ValidatePlugin extends AbstractMojo {
 
-    private static final Set<Generator> SET_OF_GENERATORS = Set.of(
-            ClassGenerator.getInstance(), ApplicationGenerator.getInstance(),
-            ControllerGenerator.getInstance(), DockerMavenGenerator.getInstance(),
-            MavenGenerator.getInstance(), ReadmeGenerator.getInstance()
-    );
-
-    @Parameter(property = "generate.pathOfFile", required = true)
+    @Parameter(property = "validate.pathOfFile", required = true)
     private String pathOfFile;
 
-    @Parameter(property = "generate.pathToGenerate", defaultValue = "./mocker/")
-    private String pathToGenerate;
 
     public void execute() {
         String json = null;
@@ -53,11 +45,5 @@ public class GeneratePlugin extends AbstractMojo {
         if (!validate(mc)) {
             throw new RuntimeException();
         }
-
-        GeneratorFactory generatorFactory;
-
-        generatorFactory = new GeneratorFactory(SET_OF_GENERATORS, pathToGenerate);
-
-        generatorFactory.generate(mc);
     }
 }

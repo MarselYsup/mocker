@@ -19,7 +19,7 @@ public class {{name}} {
 {{#responseObject.AreExistedHeaders}}                .headers(headers){{/responseObject.AreExistedHeaders}}
 {{#responseObject.body.bodyJson}}                .body("{{responseObject.body.bodyJson}}");{{/responseObject.body.bodyJson}}
 {{^responseObject.body.bodyJson}}{{#responseObject.isExistedBody}}                .body(body);{{/responseObject.isExistedBody}}{{/responseObject.body.bodyJson}}
-{{^responseObject.body.bodyJson}}{{^responseObject.isExistedBody}}                .build(){{/responseObject.isExistedBody}}{{/responseObject.body.bodyJson}}
+{{^responseObject.body.bodyJson}}{{^responseObject.isExistedBody}}                .build();{{/responseObject.isExistedBody}}{{/responseObject.body.bodyJson}}
 
     }
 }

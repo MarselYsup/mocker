@@ -23,4 +23,8 @@ public final class TypeUtils {
     public static Boolean isDouble(String field) {return field.equals(TypeConsts.DOUBLE_TYPE);}
 
     public static Boolean isList(String field) {return field.equals(TypeConsts.LIST_TYPE);}
+
+    public static Boolean isValidType(String field) {
+        return TypeConsts.TYPES.stream().anyMatch(t -> t.equals(field));
+    }
 }
