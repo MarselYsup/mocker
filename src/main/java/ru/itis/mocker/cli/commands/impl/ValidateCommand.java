@@ -4,12 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import ru.itis.mocker.cli.commands.Command;
-import ru.itis.mocker.core.consts.TypeConsts;
-import ru.itis.mocker.core.models.ClassModel;
-import ru.itis.mocker.core.models.FieldModel;
 import ru.itis.mocker.core.models.MockerModel;
 import ru.itis.mocker.core.utils.FileUtils;
-import ru.itis.mocker.core.utils.TypeUtils;
 
 import java.util.List;
 import java.util.Map;

@@ -7,14 +7,10 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import ru.itis.mocker.core.generators.Generator;
-import ru.itis.mocker.core.generators.GeneratorFactory;
-import ru.itis.mocker.core.generators.impl.*;
 import ru.itis.mocker.core.models.MockerModel;
 import ru.itis.mocker.core.utils.FileUtils;
 
 import java.io.IOException;
-import java.util.Set;
 
 import static ru.itis.mocker.core.utils.ValidateUtils.validate;
 
