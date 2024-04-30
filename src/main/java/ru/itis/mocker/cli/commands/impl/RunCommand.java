@@ -27,9 +27,10 @@ public class RunCommand implements Command {
 
         String projectPath = arguments.get(0);
         String imageName = options.get("--image");
+        String port = options.get("--port");
 
         executeDockerBuild(projectPath, imageName);
-        executeDockerRun(imageName);
+        executeDockerRun(imageName, port);
     }
 
     private void executeDockerBuild(String projectPath, String imageName) throws Exception {
@@ -51,8 +52,10 @@ public class RunCommand implements Command {
         }
     }
 
-    private void executeDockerRun(String imageName) throws Exception {
-        ProcessBuilder runProcessBuilder = new ProcessBuilder("docker", "run", "-d", "-p", "8080:8080", Objects.requireNonNullElse(imageName, DEFAULT_IMAGE_NAME));
+    private void executeDockerRun(String imageName, String port) throws Exception {
+        ProcessBuilder runProcessBuilder = new ProcessBuilder(
+                "docker", "run", "-d", "-p", String.format("%s:8080",port), Objects.requireNonNullElse(imageName, DEFAULT_IMAGE_NAME)
+        );
         runProcessBuilder.redirectErrorStream(true);
         Process runProcess = runProcessBuilder.start();
         outputProcessStream(runProcess);
@@ -78,9 +81,10 @@ public class RunCommand implements Command {
         System.out.println("Options:");
         System.out.println("\t--help\t\tDisplays help information about the 'run' command.");
         System.out.println("\t--image <image>\tSpecifies the name of the image for docker build command. If not specified, by default image = mocker");
+        System.out.println("\t--port <port>\tSpecifies the number of the port for docker build command. If not specified, by default port = 8080");
         System.out.println();
         System.out.println("Examples:");
-        System.out.println("\tmocker run /path/to/project --image my-image");
+        System.out.println("\tmocker run /path/to/project --image my-image --port 8081");
         System.out.println("\tmocker run --help");
     }
 }

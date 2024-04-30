@@ -17,6 +17,9 @@ public class RunPlugin extends AbstractMojo {
     @Parameter(property = "run.imageName", defaultValue = "mocker")
     private String imageName;
 
+    @Parameter(property = "run.port", defaultValue = "8080")
+    private String port;
+
     private void executeDockerBuild(String projectPath, String imageName) throws Exception {
         ProcessBuilder buildProcessBuilder;
         buildProcessBuilder = new ProcessBuilder("docker", "build", ".", "-t", imageName);
@@ -37,7 +40,9 @@ public class RunPlugin extends AbstractMojo {
     }
 
     private void executeDockerRun(String imageName) throws Exception {
-        ProcessBuilder runProcessBuilder = new ProcessBuilder("docker", "run", "-d", "-p", "8080:8080", imageName);
+        ProcessBuilder runProcessBuilder = new ProcessBuilder(
+                "docker", "run", "-d", "-p", String.format("%s:8080", port), imageName
+        );
         runProcessBuilder.redirectErrorStream(true);
         Process runProcess = runProcessBuilder.start();
         outputProcessStream(runProcess);
