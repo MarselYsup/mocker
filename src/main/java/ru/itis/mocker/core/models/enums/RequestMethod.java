@@ -12,6 +12,9 @@ public enum RequestMethod {
     @JsonProperty("PUT")
     PUT("PUT"),
 
+    @JsonProperty("DELETE")
+    DELETE("DELETE"),
+
     @JsonProperty("PATCH")
     PATCH("PATCH");
 
