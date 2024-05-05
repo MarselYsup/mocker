@@ -10,6 +10,8 @@ import java.util.Objects;
 public class RunCommand implements Command {
 
     private static final String DEFAULT_IMAGE_NAME = "mocker";
+    private static final String DEFAULT_PORT_NUMBER = "8080";
+
 
     @Override
     public void execute(List<String> arguments, Map<String, String> options) throws Exception {
@@ -54,13 +56,13 @@ public class RunCommand implements Command {
 
     private void executeDockerRun(String imageName, String port) throws Exception {
         ProcessBuilder runProcessBuilder = new ProcessBuilder(
-                "docker", "run", "-d", "-p", String.format("%s:8080",port), Objects.requireNonNullElse(imageName, DEFAULT_IMAGE_NAME)
+                "docker", "run", "-d", "-p", String.format("%s:8080",Objects.requireNonNullElse(port, DEFAULT_PORT_NUMBER)), Objects.requireNonNullElse(imageName, DEFAULT_IMAGE_NAME)
         );
         runProcessBuilder.redirectErrorStream(true);
         Process runProcess = runProcessBuilder.start();
         outputProcessStream(runProcess);
         // Output the process's stream to the console        outputProcessStream(runProcess);
-        System.out.println("Docker container is starting on port 8080...");
+        System.out.println("Docker container is starting on port " + DEFAULT_PORT_NUMBER + "...");
     }
     private void outputProcessStream(Process process) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));

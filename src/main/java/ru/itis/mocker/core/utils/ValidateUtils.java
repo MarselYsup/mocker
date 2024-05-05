@@ -8,6 +8,156 @@ import ru.itis.mocker.core.models.MockerModel;
 import java.util.Objects;
 
 public class ValidateUtils {
+    public static String validateWithAnswer(MockerModel mc) {
+        if (mc.getArtefactId() == null || mc.getArtefactId().isEmpty()) {
+            return "ArtefactId could not be empty or null!";
+
+        }
+
+        if(mc.getGroupId() == null || mc.getGroupId().isEmpty()) {
+            return "GroupId could not be empty or null!";
+         }
+
+        if (mc.getClasses() != null && !mc.getClasses().isEmpty()) {
+
+            if (
+                    mc.getClasses()
+                            .stream()
+                            .anyMatch(classModel -> classModel.getName() == null || classModel.getName().isEmpty())
+            ) {
+                return "Classes names could not be empty or null!";
+            }
+
+            if (
+                    mc.getClasses().stream().flatMap(classModel -> classModel.getFields().stream())
+                            .anyMatch(fieldModel -> fieldModel.getName() == null || fieldModel.getName().isEmpty())
+            ) {
+                return "Fields names could not be empty or null!";
+
+            }
+
+            if (
+                    mc.getClasses().stream().flatMap(classModel -> classModel.getFields().stream())
+                            .map(FieldModel::getType)
+                            .noneMatch(TypeUtils::isValidType)
+            ) {
+                return "Field types not supported!\n The list of types: " + TypeConsts.TYPES;
+
+            }
+        }
+
+
+
+        if (mc.getMocks() == null || mc.getMocks().isEmpty()) {
+            return "Mocks could not be empty or null!";
+
+        }
+
+        if (
+                mc.getMocks().stream()
+                        .anyMatch(mockModel -> mockModel.getName() == null || mockModel.getName().isEmpty())
+        ) {
+            return "Mocks names could not be empty or null!";
+
+        }
+
+        if (
+                mc.getMocks().stream()
+                        .anyMatch(mockModel -> mockModel.getRequest() == null || mockModel.getResponse() == null)
+        ) {
+            return "Requests/Response could not be empty or null!";
+
+        }
+
+        if (
+                mc.getMocks().stream().map(mockModel -> mockModel.getRequest().getPath()).anyMatch(
+                        path -> path == null || path.isEmpty()
+                )
+        ) {
+            return "Paths could not be empty or null!";
+
+        }
+
+        if (
+                mc.getMocks().stream().map(mockModel -> mockModel.getRequest().getPath()).anyMatch(
+                        path -> path == null || path.isEmpty()
+                )
+        ) {
+            return "Paths could not be empty or null!";
+
+        }
+
+        if (
+                mc.getMocks().stream().map(mockModel -> mockModel.getRequest().getPath()).noneMatch(
+                        URLUtils::isValidPath
+                )
+        ) {
+            return "Paths url is not valid!";
+
+        }
+        if (
+                mc.getMocks().stream().map(MockModel::getRequest)
+                        .filter(requestModel -> requestModel.getQueryParams() != null)
+                        .flatMap(requestModel -> requestModel.getQueryParams().stream())
+                        .anyMatch(queryParam -> queryParam.getName() == null || queryParam.getName().isEmpty())
+        ) {
+            return "QueryParams names could not be empty or null!";
+
+        }
+
+        if (
+                mc.getMocks().stream().map(MockModel::getRequest)
+                        .filter(requestModel -> requestModel.getQueryParams() != null)
+                        .flatMap(requestModel -> requestModel.getQueryParams().stream())
+                        .anyMatch(queryParam -> queryParam.getType() == null || queryParam.getType().isEmpty())
+        ) {
+            return "QueryParams types could not be empty or null!\n The list of types: " + TypeConsts.TYPES;
+
+        }
+
+        if (
+                mc.getMocks().stream().map(MockModel::getRequest)
+                        .filter(requestModel -> requestModel.getQueryParams() != null)
+                        .flatMap(requestModel -> requestModel.getQueryParams().stream())
+                        .noneMatch(queryParam ->TypeUtils.isValidType(queryParam.getType()))
+        ) {
+            return "QueryParams types is not valid!";
+
+        }
+
+        if (
+                mc.getMocks().stream().map(mockModel -> mockModel.getResponse().getStatus())
+                        .anyMatch(Objects::isNull)
+        ) {
+            return "Responses status could not be null!";
+
+        }
+
+        if (
+                mc.getMocks().stream()
+                        .map(MockModel::getResponse)
+                        .filter(requestModel -> requestModel.getHeaders() != null)
+                        .flatMap(requestModel -> requestModel.getHeaders().stream())
+                        .anyMatch(httpHeaderModel -> httpHeaderModel.getName() == null || httpHeaderModel.getName().isEmpty())
+
+        ) {
+            return "Responses headers name could not be empty or null!";
+
+        }
+
+        if (
+                mc.getMocks().stream()
+                        .map(MockModel::getResponse)
+                        .filter(requestModel -> requestModel.getHeaders() != null)
+                        .flatMap(requestModel -> requestModel.getHeaders().stream())
+                        .anyMatch(httpHeaderModel -> httpHeaderModel.getValue() == null)
+        ) {
+            return "Responses headers value could not be null!";
+
+        }
+
+        return null;
+    }
     public static Boolean validate(MockerModel mc) {
         if (mc.getArtefactId() == null || mc.getArtefactId().isEmpty()) {
             System.err.println("ArtefactId could not be empty or null!");
