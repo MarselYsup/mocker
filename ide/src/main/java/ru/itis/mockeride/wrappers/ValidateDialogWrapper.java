@@ -50,7 +50,6 @@ public class ValidateDialogWrapper extends DialogWrapper {
     @Override
     protected void doOKAction() {
         String pathOfFile = pathOfFileField.getText();
-        System.out.println(pathOfFile);
         if(pathOfFile.isEmpty() || pathOfFile.isBlank()){
             JOptionPane.showMessageDialog(panel, "Error: Please enter the path of the file!",
                     "Error", JOptionPane.ERROR_MESSAGE);
